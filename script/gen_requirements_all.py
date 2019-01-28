@@ -145,6 +145,9 @@ TEST_REQUIREMENTS = (
     'ruamel.yaml',
     'zigpy-homeassistant',
     'bellows-homeassistant',
+    'zigpy',
+    'bellows',
+    'wolf_ism8',
 )
 
 IGNORE_PACKAGES = (
