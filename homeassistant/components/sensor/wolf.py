@@ -1,12 +1,16 @@
 """
-Support for Wolf heating via ISM8 adapter
+Support for Wolf ISM
 """
 import logging
 import asyncio
-from ism8.ism8 import Ism8
+from wolf_ism8.ism8 import Ism8
 
 from homeassistant.const import (
-    TEMP_CELSIUS, DEVICE_CLASS_TEMPERATURE, DEVICE_CLASS_PRESSURE)
+    STATE_UNKNOWN, 
+    TEMP_CELSIUS, 
+    DEVICE_CLASS_TEMPERATURE,
+    DEVICE_CLASS_PRESSURE
+    )
 from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
@@ -15,7 +19,7 @@ async def async_setup_platform(hass, config, async_add_entities,
                                discovery_info=None):
     sensors=[]
         
-    for dp_nbr, dp in Ism8.datapoint.items():
+    for dp_nbr, dp in Ism8.datapoints.items():
         if ( dp[Ism8.DP_DEVICE] in discovery_info and 
              dp[Ism8.DP_TYPE] not in ("DPT_Switch",
                                 "DPT_Bool",
@@ -40,7 +44,7 @@ class WolfSensor(Entity):
         self._type     = dp[Ism8.DP_TYPE]
         self._writable = dp[Ism8.DP_RW]
         self._unit     = dp[Ism8.DP_UNIT]
-        self._state    = None
+        self._state    = STATE_UNKNOWN
         _LOGGER.debug('setup Sensor no. {} as {}'.format(self._nbr, self._type))
     
     @property
@@ -58,6 +62,8 @@ class WolfSensor(Entity):
         """Return the state of the device."""
         if self._state==None:
             return None
+        elif self._state==STATE_UNKNOWN:
+            return STATE_UNKNOWN
         elif type(self._state) is str:
             return self._state
         else:
@@ -93,5 +99,5 @@ class WolfSensor(Entity):
         if (self._nbr in Ism8.dp_values.keys()):
             self._state = Ism8.dp_values[self._nbr]
         return        
-       
+
  

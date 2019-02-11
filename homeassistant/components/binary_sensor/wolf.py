@@ -3,7 +3,7 @@ Support for Wolf heating via ISM8 adapter
 """
 import logging
 import asyncio
-from ism8.ism8 import Ism8
+from wolf_ism8.ism8 import Ism8
 
 from homeassistant.const import (
     TEMP_CELSIUS 
@@ -23,7 +23,7 @@ async def async_setup_platform(hass, config, async_add_entities,
                                discovery_info=None):
     sensors=[]
     
-    for dp_nbr, dp in Ism8.datapoint.items():
+    for dp_nbr, dp in Ism8.datapoints.items():
         if ( dp[Ism8.DP_DEVICE] in discovery_info and 
              dp[Ism8.DP_TYPE] in ("DPT_Switch",
                                 "DPT_Bool",

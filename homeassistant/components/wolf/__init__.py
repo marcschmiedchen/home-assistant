@@ -1,7 +1,7 @@
 """
 Support for Wolf heating system ISM via ISM8 adapter
 """
-REQUIREMENTS = ['ism8==0.1']
+REQUIREMENTS = ['wolf_ism8==0.51']
 
 import logging
 import socket
@@ -11,7 +11,7 @@ from homeassistant.const import (
     CONF_NAME, CONF_DEVICES, CONF_HOST, CONF_PORT)
 from homeassistant.helpers.discovery import load_platform
 import homeassistant.helpers.config_validation as cv
-from ism8.ism8 import Ism8
+from wolf_ism8.ism8 import Ism8
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.DEBUG)
