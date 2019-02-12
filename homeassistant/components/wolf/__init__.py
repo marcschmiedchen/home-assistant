@@ -40,9 +40,11 @@ CONFIG_SCHEMA = vol.Schema({
 async def async_setup(hass, config):
     """Get all the config values, initialize network connection and add sensors"""    
     _conf = config.get(DOMAIN)
-        
+
+    myProtocol = Ism8()
+    hass.data[DOMAIN] = myProtocol
     coro=hass.loop.create_server(
-            Ism8, 
+            myProtocol.factory,
             host=_conf.get(CONF_HOST), 
             port=_conf.get(CONF_PORT), 
             family=socket.AF_INET
@@ -60,5 +62,5 @@ async def async_setup(hass, config):
     load_platform(hass, 'binary_sensor', DOMAIN, _conf.get(CONF_DEVICES), config)
     
     return True
-                                              
-                                          
+
+
