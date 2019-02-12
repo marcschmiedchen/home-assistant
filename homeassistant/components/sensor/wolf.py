@@ -14,6 +14,7 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.components.wolf import DOMAIN
 _LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_platform(hass, config, async_add_entities,
                                discovery_info=None):
     """
@@ -49,7 +50,7 @@ class WolfSensor(Entity):
         self._unit = ism8.get_unit(dp_nbr)
         self._state = STATE_UNKNOWN
         self._ism8 = ism8
-        _LOGGER.debug('setup Sensor no. %d as %s', self.dp_nbr, self._type)
+        _LOGGER.debug('Setup sensor no. %d as %s', self.dp_nbr, self._type)
 
     @property
     def name(self) -> str:
